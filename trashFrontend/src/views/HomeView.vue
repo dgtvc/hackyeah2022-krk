@@ -2,9 +2,11 @@
 import BaseMap from "@/components/BaseMap.vue";
 import PlaceAutocompleteInput from "@/components/input/PlaceAutocompleteInput.vue";
 import { useCategoriesStore } from "@/stores/categories";
-import { ref, reactive, onMounted } from "vue";
+import { useLocationStore } from "@/stores/locations";
+import { reactive, onMounted, watch } from "vue";
 
 const categoriesStore = useCategoriesStore();
+const locationsStore = useLocationStore();
 
 const model = reactive({
   coordinates: {
@@ -15,9 +17,6 @@ const model = reactive({
   recycleTypes: [],
 });
 
-const selectedTrashTypes = ref([]);
-const selectedRecycleTypes = ref([]);
-
 const setLocation = (loc: google.maps.places.PlaceResult) => {
   if (!loc.geometry?.location) {
     return;
@@ -25,6 +24,14 @@ const setLocation = (loc: google.maps.places.PlaceResult) => {
   model.coordinates.lat = loc.geometry.location.lat();
   model.coordinates.lng = loc.geometry.location.lng();
 };
+
+watch(
+  () => model,
+  () => {
+    locationsStore.fetchPlaces(model);
+  },
+  { deep: true }
+);
 
 onMounted(() => {
   categoriesStore.fetchCategories();
@@ -43,7 +50,7 @@ onMounted(() => {
           <v-card-text>
             <h2 class="text-h6 mb-2">Trash types</h2>
 
-            <v-chip-group v-model="selectedTrashTypes" column multiple>
+            <v-chip-group v-model="model.trashTypes" column multiple>
               <v-chip
                 filter
                 outlined
@@ -58,7 +65,7 @@ onMounted(() => {
           <v-card-text>
             <h2 class="text-h6 mb-2">Recycle type</h2>
 
-            <v-chip-group v-model="selectedRecycleTypes" column>
+            <v-chip-group v-model="model.recycleTypes" column>
               <v-chip
                 filter
                 outlined
