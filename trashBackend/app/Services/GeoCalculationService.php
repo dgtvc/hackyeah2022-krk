@@ -11,7 +11,7 @@ final class GeoCalculationService implements GeoCalculationServiceInterface
     /**
      * Earth Radius in kilometers
      */
-    const EARTH_RADIUS = 6371;
+    public const EARTH_RADIUS = 6371;
 
     /**
      * @param string $latitude
