@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Map from "@/components/Map.vue";
+import BaseMap from "@/components/BaseMap.vue";
 import { ref } from "vue";
 
 const selectedTrashTypes = ref([1, 4]);
@@ -33,7 +33,7 @@ const selectedRecycleType = ref(1);
         </section>
       </v-col>
       <v-col cols="8" class="no-padding">
-        <Map
+        <BaseMap
           :map-config="{
             center: { lat: -34.397, lng: 150.644 },
             zoom: 8,
