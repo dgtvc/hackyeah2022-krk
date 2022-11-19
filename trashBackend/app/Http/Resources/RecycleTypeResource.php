@@ -15,6 +15,9 @@ class RecycleTypeResource extends JsonResource
      */
     public function toArray($request): array
     {
-        return parent::toArray($request);
+        return [
+            ...parent::toArray($request),
+            'type' => 'recycle_type',
+        ];
     }
 }
