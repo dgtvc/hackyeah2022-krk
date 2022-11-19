@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\DataTransferObject\FetchQueryDto;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 
 class FetchLocationRequest extends FormRequest
 {
@@ -25,7 +25,24 @@ class FetchLocationRequest extends FormRequest
     public function rules()
     {
         return [
-
+            'trashType' => 'required',
+            'recycleType' => 'required',
+            'distance' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
         ];
+    }
+
+    public function validated($key = null, $default = null)
+    {
+        $data = parent::validated($key, $default);
+
+        return new FetchQueryDto(
+            $data['trashType'],
+            $data['recycleType'],
+            $data['distance'],
+            $data['latitude'],
+            $data['longitude'],
+        );
     }
 }

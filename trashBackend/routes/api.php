@@ -19,4 +19,7 @@ Route::get('location', \App\Http\Controllers\FetchLocationAction::class)
 Route::post('location', \App\Http\Controllers\StoreLocationAction::class)
     ->name('location.store');
 
+Route::get('category', \App\Http\Controllers\FetchCategoryAction::class)
+    ->name('category.fetch');
+
 Route::get('ok', fn () => 'ok');

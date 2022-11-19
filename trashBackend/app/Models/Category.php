@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Ramsey\Uuid\Uuid;
 
 class Category extends Model
 {
@@ -19,18 +18,15 @@ class Category extends Model
 
     protected $table = 'categories';
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'pivot',
+    ];
+
     public function locations(): BelongsToMany
     {
         return $this->belongsToMany(Location::class);
-    }
-
-    public function newUniqueId()
-    {
-        return Uuid::uuid4()->toString();
-    }
-
-    public function uniqueIds()
-    {
-        return ['uuid'];
     }
 }
