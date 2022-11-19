@@ -18,6 +18,12 @@ class Location extends Model
 
     protected $table = 'location';
 
+    protected $fillable = [
+        'name',
+        'latitude',
+        'longitude',
+    ];
+
     protected $hidden = [
         'created_at',
         'updated_at',

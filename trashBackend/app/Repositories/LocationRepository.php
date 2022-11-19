@@ -37,7 +37,19 @@ final class LocationRepository extends AbstractEloquentRepository implements Loc
      */
     public function store(array $data): void
     {
-        $this->create($data);
+        /** @var Location $model */
+        $model = $this->makeModel();
+        $model->fill($data);
+        $model->save();
+
+        $categories = array_map(function (string $uuid) use ($model){
+            return [
+                'category_uuid' => $uuid,
+                'location_uuid' => $model->uuid,
+            ];
+        }, $data['category']);
+
+        $model->categories()->sync($categories);
     }
 
     private function ofCategoryTypes(array $trashType, array $recycleType)

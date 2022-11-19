@@ -26,7 +26,10 @@ class StoreLocationRequest extends FormRequest
         return [
             'name' => 'required|max:80',
             'latitude' => 'required|between:-90,90',
-            'longitude' => 'required|between:-180,180'
+            'longitude' => 'required|between:-180,180',
+            'category' => 'array',
+            'category.*' => 'uuid|exists:categories,uuid',
+//            'recycle_type' => 'string|exists:recycle_type,uuid'
         ];
     }
 }
