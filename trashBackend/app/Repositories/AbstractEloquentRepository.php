@@ -44,6 +44,11 @@ abstract class AbstractEloquentRepository implements RepositoryInterface
     protected array $whereIns = [];
 
     /**
+     * Array of between where in clause parameters.
+     */
+    protected array $whereBetween = [];
+
+    /**
      * Array of one or more ORDER BY column/value pairs.
      */
     protected array $orderBys = [];
@@ -345,6 +350,16 @@ abstract class AbstractEloquentRepository implements RepositoryInterface
     }
 
     /**
+     * Add a simple where between clause to the query.
+     */
+    public function whereBetween(string $column, int | float $from, int | float $to): self
+    {
+        $this->whereBetween[] = compact('column', 'from', 'to');
+
+        return $this;
+    }
+
+    /**
      * Add a simple where has clause to the query.
      */
     public function whereHas(string $column, mixed $value): self
@@ -415,6 +430,10 @@ abstract class AbstractEloquentRepository implements RepositoryInterface
             $this->query->whereIn($whereIn['column'], $whereIn['values']);
         }
 
+        foreach ($this->whereBetween as $where) {
+            $this->query->whereBetween($where['column'], [$where['from'], $where['to']]);
+        }
+
         foreach ($this->has as $has) {
             $this->query->has($has);
         }
@@ -455,6 +474,7 @@ abstract class AbstractEloquentRepository implements RepositoryInterface
         $this->whereHas = [];
         $this->has = [];
         $this->whereIns = [];
+        $this->whereBetween = [];
         $this->scopes = [];
         $this->orderBys = [];
         $this->take = null;
