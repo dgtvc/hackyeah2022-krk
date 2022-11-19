@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
+import { RouterView } from "vue-router";
+
+import AppNavigation from "./components/app/AppNavigation.vue";
 </script>
 
 <template>
   <v-layout>
     <v-app-bar :elevation="1">
-      <RouterLink :to="{ name: 'home' }">Home</RouterLink>
-      <RouterLink :to="{ name: 'add-new-location' }">Add new</RouterLink>
+      <v-spacer />
+      <AppNavigation />
     </v-app-bar>
     <v-main>
       <RouterView />

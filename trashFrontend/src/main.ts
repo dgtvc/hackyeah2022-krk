@@ -23,6 +23,11 @@ const vuetify = createVuetify({
       mdi,
     },
   },
+  defaults: {
+    global: {
+      ripple: false,
+    },
+  },
 });
 
 const app = createApp(App);
