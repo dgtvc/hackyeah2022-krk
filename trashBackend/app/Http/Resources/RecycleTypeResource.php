@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class LocationApiResource extends JsonResource
+class RecycleTypeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(CategorySeeder::class);
+        $this->call(RecycleTypeSeeder::class);
         $this->call(LocationSeeder::class);
         $this->call(LocationCategoryPivotSeeder::class);
     }

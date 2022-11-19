@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
+use App\Models\RecycleType;
 use Illuminate\Database\Seeder;
 
-class CategorySeeder extends Seeder
+class RecycleTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,16 +14,14 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        $this->createCategory('Glass');
-        $this->createCategory('Battery');
-        $this->createCategory('Electronic');
-        $this->createCategory('Medicines');
+        $this->createCategory('Repair');
+        $this->createCategory('Recycle');
     }
 
     private function createCategory(
         string $name,
     ): void {
-        Category::factory()->make(
+        RecycleType::factory()->make(
             [
                 'name' => $name,
             ]

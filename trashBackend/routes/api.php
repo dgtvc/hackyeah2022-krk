@@ -22,4 +22,7 @@ Route::post('location', \App\Http\Controllers\StoreLocationAction::class)
 Route::get('category', \App\Http\Controllers\FetchCategoryAction::class)
     ->name('category.fetch');
 
+Route::get('recycle-type', \App\Http\Controllers\FetchRecycleTypeAction::class)
+    ->name('recycleType.fetch');
+
 Route::get('ok', fn () => 'ok');
