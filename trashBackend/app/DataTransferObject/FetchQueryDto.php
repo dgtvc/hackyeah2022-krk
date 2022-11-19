@@ -6,18 +6,18 @@ namespace App\DataTransferObject;
 
 final class FetchQueryDto
 {
-    private string $trashType;
-    private string $recycleType;
-    private int $distance;
-    private string $latitude;
-    private string $longitude;
+    private ?array $trashType;
+    private ?array $recycleType;
+    private ?int $distance;
+    private ?string $latitude;
+    private ?string $longitude;
 
     public function __construct(
-        string $trashType,
-        string $recycleType,
-        int $distance,
-        string $latitude,
-        string $longitude,
+        ?array $trashType,
+        ?array $recycleType,
+        ?int $distance,
+        ?string $latitude,
+        ?string $longitude,
     ) {
         $this->trashType = $trashType;
         $this->recycleType = $recycleType;
@@ -26,27 +26,27 @@ final class FetchQueryDto
         $this->longitude = $longitude;
     }
 
-    public function getTrashType(): string
+    public function getTrashType(): ?array
     {
         return $this->trashType;
     }
 
-    public function getRecycleType(): string
+    public function getRecycleType(): ?array
     {
         return $this->recycleType;
     }
 
-    public function getDistance(): int
+    public function getDistance(): ?int
     {
         return $this->distance;
     }
 
-    public function getLatitude(): string
+    public function getLatitude(): ?string
     {
         return $this->latitude;
     }
 
-    public function getLongitude(): string
+    public function getLongitude(): ?string
     {
         return $this->longitude;
     }

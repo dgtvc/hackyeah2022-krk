@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('location', \App\Http\Controllers\FetchLocationAction::class)
+Route::post('location/fetch', \App\Http\Controllers\FetchLocationAction::class)
     ->name('location.fetch');
 
 Route::post('location', \App\Http\Controllers\StoreLocationAction::class)
