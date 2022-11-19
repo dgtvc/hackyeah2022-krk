@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, defineProps } from "vue";
+import { ref, onMounted, defineProps, watch } from "vue";
 import type { Ref } from "vue";
 import { Loader } from "@googlemaps/js-api-loader";
 
@@ -26,6 +26,18 @@ onMounted(async () => {
   map.value = new google.maps.Map(
     googleMapElement.value,
     props.mapConfig || {}
+  );
+
+  watch(
+    () => props.mapConfig,
+    (config) => {
+      if (!map.value || !config) {
+        return;
+      }
+
+      map.value.setCenter(config.center);
+    },
+    { deep: true }
   );
 });
 </script>

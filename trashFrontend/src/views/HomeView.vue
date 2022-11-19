@@ -1,9 +1,21 @@
 <script setup lang="ts">
 import BaseMap from "@/components/BaseMap.vue";
-import { ref } from "vue";
+import PlaceAutocompleteInput from "@/components/input/PlaceAutocompleteInput.vue";
+import { ref, reactive } from "vue";
 
 const selectedTrashTypes = ref([1, 4]);
 const selectedRecycleType = ref(1);
+const coordiantes = reactive({
+  lat: 50.049683,
+  lng: 19.944544,
+});
+const setLocation = (loc: google.maps.places.PlaceResult) => {
+  if (!loc.geometry?.location) {
+    return;
+  }
+  coordiantes.lat = loc.geometry.location.lat();
+  coordiantes.lng = loc.geometry.location.lng();
+};
 </script>
 
 <template>
@@ -13,6 +25,7 @@ const selectedRecycleType = ref(1);
         <section class="leftBar">
           <v-card-text>
             <h2 class="text-h6 mb-2">Location</h2>
+            <PlaceAutocompleteInput @select="setLocation" />
           </v-card-text>
           <v-card-text>
             <h2 class="text-h6 mb-2">Trash types</h2>
@@ -38,8 +51,8 @@ const selectedRecycleType = ref(1);
       <v-col cols="8" class="no-padding">
         <BaseMap
           :map-config="{
-            center: { lat: 50.049683, lng: 19.944544 },
-            zoom: 8,
+            center: coordiantes,
+            zoom: 12,
           }"
         />
       </v-col>
