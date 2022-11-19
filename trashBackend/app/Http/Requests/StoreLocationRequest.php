@@ -24,7 +24,9 @@ class StoreLocationRequest extends FormRequest
     public function rules()
     {
         return [
-
+            'name' => 'required|max:80',
+            'latitude' => 'required|between:-90,90',
+            'longitude' => 'required|between:-180,180'
         ];
     }
 }
