@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['as' => 'api'], function () {
+Route::group(['prefix' => 'api'], function () {
    Route::get('location', \App\Http\Controllers\FetchLocationAction::class)
        ->name('location.fetch');
 

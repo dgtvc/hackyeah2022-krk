@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Ramsey\Uuid\Uuid;
 
@@ -15,6 +16,17 @@ class Location extends Model
 
     protected $table = 'location';
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
     public function newUniqueId()
     {
         return Uuid::uuid4()->toString();
@@ -22,6 +34,6 @@ class Location extends Model
 
     public function uniqueIds()
     {
-        return ['id'];
+        return ['uuid'];
     }
 }
