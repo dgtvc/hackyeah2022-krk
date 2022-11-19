@@ -13,12 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'api'], function () {
-    Route::get('location', \App\Http\Controllers\FetchLocationAction::class)
-        ->name('location.fetch');
+Route::get('location', \App\Http\Controllers\FetchLocationAction::class)
+    ->name('location.fetch');
 
-    Route::post('location', \App\Http\Controllers\StoreLocationAction::class)
-        ->name('location.store');
-});
+Route::post('location', \App\Http\Controllers\StoreLocationAction::class)
+    ->name('location.store');
 
 Route::get('ok', fn () => 'ok');
