@@ -65,7 +65,7 @@ onMounted(() => {
           <v-card-text>
             <h2 class="text-h6 mb-2">Recycle type</h2>
 
-            <v-chip-group v-model="model.recycleTypes" column>
+            <v-chip-group v-model="model.recycleTypes" column multiple>
               <v-chip
                 filter
                 outlined
