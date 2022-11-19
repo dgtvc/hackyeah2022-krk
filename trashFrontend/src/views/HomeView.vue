@@ -17,7 +17,7 @@ const model = reactive({
     lng: 19.944544,
   },
   trashTypes: [],
-  recycleTypes: [],
+  recycleType: [],
 });
 
 const setLocation = (loc: google.maps.places.PlaceResult) => {
@@ -68,17 +68,10 @@ onMounted(() => {
           <v-card-text>
             <h2 class="text-h6 mb-2">Recycle type</h2>
 
-            <v-chip-group v-model="model.recycleTypes" column multiple>
-              <v-chip
-                filter
-                outlined
-                v-for="category in categoriesStore.recycleCategories"
-                :key="category.uuid"
-                :value="category.uuid"
-              >
-                {{ category.name }}
-              </v-chip>
-            </v-chip-group>
+            <v-btn-toggle color="primary" v-model="model.recycleType">
+              <v-btn size="small">Repair</v-btn>
+              <v-btn size="small">Recycle</v-btn>
+            </v-btn-toggle>
           </v-card-text>
           <v-card-text>
             <h2 class="text-h6 mb-2">Options</h2>

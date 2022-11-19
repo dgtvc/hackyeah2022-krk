@@ -23,6 +23,15 @@ const vuetify = createVuetify({
       mdi,
     },
   },
+  theme: {
+    themes: {
+      light: {
+        colors: {
+          primary: "#28965A",
+        },
+      },
+    },
+  },
   defaults: {
     global: {
       ripple: false,
