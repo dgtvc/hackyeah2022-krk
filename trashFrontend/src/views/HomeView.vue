@@ -58,8 +58,7 @@ const filteredLocations = computed(() =>
     : locations.value
 );
 
-const selectPoint = ({ uuid }) => {
-  console.log(uuid);
+const selectPoint = ({ uuid }: { uuid: string }) => {
   selectedPoint.value = uuid;
 };
 </script>
