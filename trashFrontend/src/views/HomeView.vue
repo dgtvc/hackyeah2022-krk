@@ -8,7 +8,7 @@ const selectedRecycleType = ref(1);
 
 <template>
   <v-container fluid>
-    <v-row>
+    <v-row class="app-row">
       <v-col cols="4">
         <section class="leftBar">
           <v-card-text>
@@ -50,5 +50,8 @@ const selectedRecycleType = ref(1);
 }
 .no-padding {
   padding: 0 !important;
+}
+.app-row.v-row {
+  margin: -16px;
 }
 </style>
