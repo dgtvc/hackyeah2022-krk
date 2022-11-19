@@ -46,6 +46,12 @@ const setLocation = (loc: google.maps.places.PlaceResult) => {
               <v-chip filter outlined> Reprocess </v-chip>
             </v-chip-group>
           </v-card-text>
+          <v-card-text>
+            <h2 class="text-h6 mb-2">Options</h2>
+
+            <!-- <v-icon large color="green darken-2">mdi-currency-usd</v-icon> -->
+            <v-switch inset label="Only paid offers"></v-switch>
+          </v-card-text>
         </section>
       </v-col>
       <v-col cols="8" class="no-padding">
@@ -61,9 +67,6 @@ const setLocation = (loc: google.maps.places.PlaceResult) => {
 </template>
 
 <style>
-.v-selection-control {
-  flex-direction: row-reverse;
-}
 .no-padding {
   padding: 0 !important;
 }
