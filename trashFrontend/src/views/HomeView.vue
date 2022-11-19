@@ -12,6 +12,9 @@ const selectedRecycleType = ref(1);
       <v-col cols="4">
         <section class="leftBar">
           <v-card-text>
+            <h2 class="text-h6 mb-2">Location</h2>
+          </v-card-text>
+          <v-card-text>
             <h2 class="text-h6 mb-2">Trash types</h2>
 
             <v-chip-group v-model="selectedTrashTypes" column multiple>
@@ -25,9 +28,9 @@ const selectedRecycleType = ref(1);
             <h2 class="text-h6 mb-2">Recycle type</h2>
 
             <v-chip-group v-model="selectedRecycleType" column>
-              <v-chip filter outlined> Glass </v-chip>
-              <v-chip filter outlined> Battery </v-chip>
-              <v-chip filter outlined> Electronic </v-chip>
+              <v-chip filter outlined> Recycle </v-chip>
+              <v-chip filter outlined> Repair </v-chip>
+              <v-chip filter outlined> Reprocess </v-chip>
             </v-chip-group>
           </v-card-text>
         </section>
@@ -35,7 +38,7 @@ const selectedRecycleType = ref(1);
       <v-col cols="8" class="no-padding">
         <BaseMap
           :map-config="{
-            center: { lat: -34.397, lng: 150.644 },
+            center: { lat: 50.049683, lng: 19.944544 },
             zoom: 8,
           }"
         />

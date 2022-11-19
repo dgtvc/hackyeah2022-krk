@@ -24,8 +24,6 @@ onMounted(async () => {
     googleMapElement.value,
     props.mapConfig || {}
   );
-
-  console.log(map.value);
 });
 </script>
 
