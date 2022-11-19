@@ -3,7 +3,7 @@ import BaseMap from "@/components/BaseMap.vue";
 import PlaceAutocompleteInput from "@/components/input/PlaceAutocompleteInput.vue";
 import { useCategoriesStore } from "@/stores/categories";
 import { useLocationStore } from "@/stores/locations";
-import { reactive, onMounted, watch } from "vue";
+import { reactive, onMounted, watch, computed, ref } from "vue";
 import BaseCard from "@/components/base/BaseCard.vue";
 import { storeToRefs } from "pinia";
 
@@ -39,6 +39,29 @@ watch(
 onMounted(() => {
   categoriesStore.fetchCategories();
 });
+
+const selectedPoint = ref("");
+
+const coords = computed(() =>
+  locations.value.map(({ latitude, longitude, uuid }) => ({
+    lat: parseFloat(latitude),
+    lng: parseFloat(longitude),
+    uuid,
+  }))
+);
+
+const filteredLocations = computed(() =>
+  selectedPoint.value
+    ? locations.value.filter(
+        (location) => location.uuid === selectedPoint.value
+      )
+    : locations.value
+);
+
+const selectPoint = ({ uuid }) => {
+  console.log(uuid);
+  selectedPoint.value = uuid;
+};
 </script>
 
 <template>
@@ -93,19 +116,15 @@ onMounted(() => {
             center: model.coordinates,
             zoom: 12,
           }"
-          :markers="
-            locations.map(({ latitude, longitude }) => ({
-              lat: parseFloat(latitude),
-              lng: parseFloat(longitude),
-            }))
-          "
+          :markers="coords"
+          @selected-point="selectPoint"
         />
       </v-col>
       <v-col cols="3">
         <section class="right-bar">
           <BaseCard
-            v-for="(location, key) in locations"
-            :key="key"
+            v-for="location in filteredLocations"
+            :key="location.uuid"
             img-src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
             :title="location.title"
             :description="location.description"

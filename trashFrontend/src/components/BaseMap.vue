@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, defineProps, watch } from "vue";
+import { ref, onMounted, defineProps, watch, defineEmits } from "vue";
 import type { Ref } from "vue";
 import { Loader } from "@googlemaps/js-api-loader";
 
@@ -14,6 +14,7 @@ interface Props {
   markers?: {
     lat: number;
     lng: number;
+    uuid: string;
     draggable?: boolean;
   }[];
 }
@@ -21,6 +22,13 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   markers: () => [],
 });
+
+const emit = defineEmits<{
+  (
+    event: "selectedPoint",
+    payload: { position: google.maps.LatLng | null | undefined; uuid: string }
+  ): void;
+}>();
 
 const map: Ref<google.maps.Map | null> = ref(null);
 const googleMapElement: Ref<HTMLElement | null> = ref(null);
@@ -55,12 +63,19 @@ onMounted(async () => {
     { deep: true }
   );
 
-  props.markers.forEach(({ lat, lng, draggable }) => {
+  props.markers.forEach(({ lat, lng, draggable, uuid }) => {
     const marker = new google.maps.Marker({
       position: { lat, lng },
       title: "Hello World!",
       draggable,
     });
+
+    marker.addListener("click", () => {
+      map.value?.setZoom(16);
+      map.value?.setCenter(marker.getPosition() as google.maps.LatLng);
+      emit("selectedPoint", { position: marker.getPosition(), uuid });
+    });
+
     marker.setMap(map.value);
   });
 });

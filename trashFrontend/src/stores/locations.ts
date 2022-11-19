@@ -15,7 +15,7 @@ export const useLocationStore = defineStore("location", () => {
       {
         uuid: "1c3e43e6-7e19-42a0-adc7-c337859db44e",
         name: "Grzybowa 64",
-        title: "Any fancy place",
+        title: "Any fancy place Grzybowa 64",
         description: "Any fancy place description",
         latitude: "50.091352",
         longitude: "19.989579",
@@ -45,7 +45,7 @@ export const useLocationStore = defineStore("location", () => {
       {
         uuid: "348798fc-1bb0-4918-b907-179e45878886",
         name: "Rubinowa 41A",
-        title: "Any fancy place",
+        title: "Any fancy place Rubinowa 41A",
         description: "Any fancy place description",
         latitude: "49.993513",
         longitude: "19.93438",
@@ -60,7 +60,7 @@ export const useLocationStore = defineStore("location", () => {
       {
         uuid: "3715a946-f9f3-4894-9e23-bb1c82ea71ae",
         name: "Spółdzielcza 35/42",
-        title: "Any fancy place",
+        title: "Any fancy place Spółdzielcza 35/42",
         description: "Any fancy place description",
         latitude: "50.09388",
         longitude: "19.972403",
