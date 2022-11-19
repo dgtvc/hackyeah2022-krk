@@ -4,6 +4,7 @@ import PlaceAutocompleteInput from "@/components/input/PlaceAutocompleteInput.vu
 import { useCategoriesStore } from "@/stores/categories";
 import { useLocationStore } from "@/stores/locations";
 import { reactive, onMounted, watch } from "vue";
+import BaseCard from "@/components/base/BaseCard.vue";
 
 const categoriesStore = useCategoriesStore();
 const locationsStore = useLocationStore();
@@ -105,46 +106,24 @@ onMounted(() => {
       </v-col>
       <v-col cols="3">
         <section class="right-bar">
-          <v-card color="#d3d3d3" class="mb-3">
-            <v-img
-              height="150"
-              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-              cover
-            ></v-img>
-
-            <v-card-title>Cafe Badilico</v-card-title>
-
-            <v-card-text>
-              <div>
-                Small plates, salads & sandwiches - an intimate setting with 12
-                indoor seats plus patio seating.
-              </div>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-btn color="lighten-2" text> More details </v-btn>
-            </v-card-actions>
-          </v-card>
-          <v-card color="#d3d3d3">
-            <v-img
-              height="150"
-              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-              cover
-            ></v-img>
-
-            <v-card-title>Cafe Badilico</v-card-title>
-
-            <v-card-text>
-              <div>
-                Small plates, salads & sandwiches - an intimate setting with 12
-                indoor seats plus patio seating.
-              </div>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-btn color="lighten-2" text> More details </v-btn>
-            </v-card-actions>
-          </v-card>
+          <BaseCard
+            img-src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+            title="Cafe Badilico"
+            description="Small plates, salads & sandwiches - an intimate setting with 12
+                indoor seats plus patio seating."
+          />
+          <BaseCard
+            img-src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+            title="Cafe Badilico"
+            description="Small plates, salads & sandwiches - an intimate setting with 12
+                indoor seats plus patio seating."
+          />
+          <BaseCard
+            img-src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+            title="Cafe Badilico"
+            description="Small plates, salads & sandwiches - an intimate setting with 12
+                indoor seats plus patio seating."
+          />
         </section>
       </v-col>
     </v-row>
