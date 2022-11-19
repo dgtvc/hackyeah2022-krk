@@ -62,5 +62,7 @@ interface RepositoryInterface
 
     public function whereIn(string $column, mixed $value): self;
 
+    public function whereBetween(string $column, int | float $from, int | float $to): self;
+
     public function with(mixed $relations): self;
 }
