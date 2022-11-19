@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -12,7 +12,10 @@ use Ramsey\Uuid\Uuid;
 
 class Category extends Model
 {
-    use HasFactory; use SoftDeletes; use HasTimestamps; use HasUuids;
+    use HasFactory;
+    use SoftDeletes;
+    use HasTimestamps;
+    use UuidTrait;
 
     protected $table = 'categories';
 

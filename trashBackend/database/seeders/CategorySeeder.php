@@ -27,7 +27,8 @@ class CategorySeeder extends Seeder
         string $name,
         string $type
     ): void {
-        Category::factory()->make([
+        Category::factory()->make(
+            [
                 'name' => $name,
                 'type' => $type,
             ]

@@ -6,5 +6,4 @@ namespace App\Repositories;
 
 interface CategoryRepositoryInterface
 {
-
 }
