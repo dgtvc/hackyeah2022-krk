@@ -60,6 +60,17 @@ const setLocation = (loc: google.maps.places.PlaceResult) => {
             center: coordiantes,
             zoom: 12,
           }"
+          :markers="[
+            {
+              lat: 50.049683,
+              lng: 19.944544,
+            },
+            {
+              lat: 49.9834763,
+              lng: 20.0537965,
+              draggable: true,
+            },
+          ]"
         />
       </v-col>
     </v-row>
