@@ -11,10 +11,12 @@
 import { Loader } from "@googlemaps/js-api-loader";
 import { defineEmits, onMounted, ref, watch } from "vue";
 
-const emit = defineEmits(["select"]);
+const emit = defineEmits<{
+  (event: "select", payload: google.maps.places.PlaceResult): void;
+}>();
 
 const autocompleteInstance = ref();
-const selectedPlace = ref();
+const selectedPlace = ref<google.maps.places.PlaceResult>();
 const searchValue = ref("");
 
 const loader = new Loader({
@@ -31,7 +33,9 @@ const options = {
 };
 
 function initializeAutocomplete() {
-  const input = document.querySelector("#autocompleteInput");
+  const input = document.querySelector<HTMLInputElement>("#autocompleteInput");
+
+  if (!input) return;
 
   loader.load().then((google) => {
     autocompleteInstance.value = new google.maps.places.Autocomplete(
@@ -47,8 +51,10 @@ function initializeAutocomplete() {
   });
 }
 
-watch(selectedPlace, () => {
-  emit("select", selectedPlace.value);
+watch(selectedPlace, (value) => {
+  if (value) {
+    emit("select", value);
+  }
 });
 
 onMounted(() => {
