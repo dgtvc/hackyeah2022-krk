@@ -6,18 +6,24 @@ import { ref, reactive, onMounted } from "vue";
 
 const categoriesStore = useCategoriesStore();
 
+const model = reactive({
+  coordinates: {
+    lat: 50.049683,
+    lng: 19.944544,
+  },
+  trashTypes: [],
+  recycleTypes: [],
+});
+
 const selectedTrashTypes = ref([]);
 const selectedRecycleTypes = ref([]);
-const coordinates = reactive({
-  lat: 50.049683,
-  lng: 19.944544,
-});
+
 const setLocation = (loc: google.maps.places.PlaceResult) => {
   if (!loc.geometry?.location) {
     return;
   }
-  coordinates.lat = loc.geometry.location.lat();
-  coordinates.lng = loc.geometry.location.lng();
+  model.coordinates.lat = loc.geometry.location.lat();
+  model.coordinates.lng = loc.geometry.location.lng();
 };
 
 onMounted(() => {
@@ -74,7 +80,7 @@ onMounted(() => {
       <v-col cols="8" class="no-padding">
         <BaseMap
           :map-config="{
-            center: coordinates,
+            center: model.coordinates,
             zoom: 12,
           }"
           :markers="[
