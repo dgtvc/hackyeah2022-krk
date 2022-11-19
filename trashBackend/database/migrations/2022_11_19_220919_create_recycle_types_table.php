@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\RecycleType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,14 +12,10 @@ return new class () extends Migration {
      */
     public function up()
     {
-        Schema::create('location', function (Blueprint $table) {
+        Schema::create('recycle_types', function (Blueprint $table) {
             $table->uuid();
-            $table->string('name', 160);
-            $table->string('latitude');
-            $table->string('longitude');
-            $table->foreignIdFor(RecycleType::class);
+            $table->string('name');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -31,6 +26,6 @@ return new class () extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('location');
+        Schema::dropIfExists('recycle_types');
     }
 };

@@ -6,6 +6,8 @@ namespace App\Repositories;
 
 use App\DataTransferObject\FetchQueryDto;
 use App\Models\Location;
+use App\Models\RecycleType;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -23,31 +25,48 @@ final class LocationRepository extends AbstractEloquentRepository implements Loc
      */
     public function fetch(FetchQueryDto $parameters, array $area): Collection
     {
-        return $this
-            ->ofCategoryTypes($parameters->getTrashType(), $parameters->getRecycleType())
-            ->whereBetween('latitude', $area['min_latitude'], $area['max_latitude'])
+        if ($parameters->getTrashType()) {
+            $this->ofCategoryTypes($parameters->getTrashType());
+        }
+
+        if ($parameters->getRecycleType()) {
+            $this->whereIn(RecycleType::RELATION_STRING, $parameters->getRecycleType());
+        }
+
+        return $this->whereBetween('latitude', $area['min_latitude'], $area['max_latitude'])
             ->whereBetween('longitude', $area['min_longitude'], $area['max_longitude'])
             ->with('categories')
             ->get();
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      * @return void
+     * @throws Exception
      */
     public function store(array $data): void
     {
-        $this->create($data);
+        /** @var Location $model */
+        $model = $this->makeModel();
+        $model->fill($data);
+        $model->save();
+
+        $categories = array_map(function (string $uuid) use ($model) {
+            return [
+                'category_uuid' => $uuid,
+                'location_uuid' => $model->uuid,
+            ];
+        }, $data['category']);
+
+        $model->categories()->sync($categories);
     }
 
-    private function ofCategoryTypes(array $trashType, array $recycleType)
+    private function ofCategoryTypes(array $trashType): self
     {
-        $this->whereHas('categories',
-            fn(Builder $query) => $query
+        $this->whereHas(
+            'categories',
+            fn (Builder $query) => $query
                 ->whereIn('uuid', $trashType)
-                ->where('type', 'Trash')
-                ->orWhereIn('uuid', $recycleType)
-                ->where('type', 'Recycle')
         );
 
         return $this;
