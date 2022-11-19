@@ -11,15 +11,25 @@
 				{
 					"name": "Fetch",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trashType\": [\n        \"fcc8fe50-ba83-482b-a6a5-4d0909509be5\"\n    ],\n    \"recycleType\": [\n        \"dd2372c7-b701-4189-a4c5-96208562c775\"\n    ],\n    \"distance\": 300,\n    \"lat\": \"50.0647\",\n    \"lng\": \"19.9450\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{url}}/location",
+							"raw": "{{url}}/location/fetch",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"location"
+								"location",
+								"fetch"
 							]
 						}
 					},
@@ -32,7 +42,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"XD\",\n    \"latitude\": \"50.0647\",\n    \"longitude\": \"19.9450\"\n}",
+							"raw": "{\n    \"name\": \"XD\",\n    \"latitude\": \"50.0647\",\n    \"longitude\": \"19.9450\",\n    \"category\": [\n        \"08f34584-89f9-49dd-adfa-459bcc905d3f\",\n        \"dd2372c7-b701-4189-a4c5-96208562c775\"\n    ],\n    \"recycle_type\": \"08f34584-89f9-49dd-adfa-459bcc905d3f\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

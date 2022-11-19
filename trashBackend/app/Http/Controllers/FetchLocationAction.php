@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\DataTransferObject\FetchQueryDto;
 use App\Http\Requests\FetchLocationRequest;
 use App\Http\Resources\LocationApiResource;
 use App\Interfaces\GeoCalculationServiceInterface;
 use App\Repositories\LocationRepositoryInterface;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 final class FetchLocationAction extends Controller
@@ -23,9 +25,15 @@ final class FetchLocationAction extends Controller
         $this->geoCalculationService = $geoCalculationService;
     }
 
-    public function __invoke(FetchLocationRequest $request): AnonymousResourceCollection
+    public function __invoke(FetchLocationRequest $request): JsonResponse|AnonymousResourceCollection
     {
-        $data = $request->validated();
+        $data = new FetchQueryDto(
+            trashType: $request->get('trashType'),
+            recycleType: $request->get('recycleType'),
+            distance: (int) $request->get('distance'),
+            latitude: $request->get('lat'),
+            longitude: $request->get('lng'),
+        );
 
         $area = $this->geoCalculationService->calculateLatLongArea(
             $data->getLatitude(),
@@ -33,7 +41,7 @@ final class FetchLocationAction extends Controller
             $data->getDistance()
         );
 
-        $locationCollection = $this->locationRepository->fetch($data);
+        $locationCollection = $this->locationRepository->fetch($data, $area);
 
         return LocationApiResource::collection($locationCollection);
     }

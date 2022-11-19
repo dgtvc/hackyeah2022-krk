@@ -29,34 +29,13 @@ class FetchLocationRequest extends FormRequest
     public function rules()
     {
         return [
-            'trashType' => [
-                'required',
-            ],
-            'recycleType' => [
-                'required'
-            ],
-            'distance' => [
-                'required'
-            ],
-            'latitude' => [
-                'required'
-            ],
-            'longitude' => [
-                'required'
-            ],
+            'trashType' => 'array',
+            'trashType.*' => 'uuid',
+            'recycleType' => 'array',
+            'recycleType.*' => 'uuid',
+            'distance' => 'integer|max:500|min:1',
+            'lat' => 'between:-90,90',
+            'lng' => 'between:-180,180'
         ];
-    }
-
-    public function validated($key = null, $default = null)
-    {
-        $data = parent::validated($key, $default);
-
-        return new FetchQueryDto(
-            $data['trashType'],
-            $data['recycleType'],
-            $data['distance'],
-            $data['latitude'],
-            $data['longitude'],
-        );
     }
 }

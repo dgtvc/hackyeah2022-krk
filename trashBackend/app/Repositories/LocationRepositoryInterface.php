@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface LocationRepositoryInterface
 {
-    public function fetch(FetchQueryDto $parameters): Collection;
+    public function fetch(FetchQueryDto $parameters, array $area): Collection;
 
     public function store(array $data): void;
 }
