@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
+use App\DataTransferObject\FetchQueryDto;
 use App\Models\Location;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -18,7 +19,7 @@ final class LocationRepository extends AbstractEloquentRepository implements Loc
      * @param array $parameters
      * @return Collection
      */
-    public function fetch(array $parameters): Collection
+    public function fetch(FetchQueryDto $parameters): Collection
     {
         return $this->with('categories')->all();
     }
