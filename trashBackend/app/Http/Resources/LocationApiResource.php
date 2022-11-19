@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -12,9 +11,9 @@ class LocationApiResource extends JsonResource
      * Transform the resource into an array.
      *
      * @param  Request  $request
-     * @return Arrayable
+     * @return array
      */
-    public function toArray($request): Arrayable
+    public function toArray($request): array
     {
         return parent::toArray($request);
     }
