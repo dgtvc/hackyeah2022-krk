@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Map from "@/components/Map.vue";
 import { ref } from "vue";
 
 const selectedTrashTypes = ref([1, 4]);
@@ -6,7 +7,7 @@ const selectedRecycleType = ref(1);
 </script>
 
 <template>
-  <v-container>
+  <v-container fluid>
     <v-row>
       <v-col cols="4">
         <section class="leftBar">
@@ -31,8 +32,13 @@ const selectedRecycleType = ref(1);
           </v-card-text>
         </section>
       </v-col>
-      <v-col cols="8">
-        <RouterView />
+      <v-col cols="8" class="no-padding">
+        <Map
+          :map-config="{
+            center: { lat: -34.397, lng: 150.644 },
+            zoom: 8,
+          }"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -41,5 +47,8 @@ const selectedRecycleType = ref(1);
 <style>
 .v-selection-control {
   flex-direction: row-reverse;
+}
+.no-padding {
+  padding: 0 !important;
 }
 </style>
