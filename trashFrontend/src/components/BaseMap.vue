@@ -14,6 +14,9 @@ const googleMapElement: Ref<HTMLElement | null> = ref(null);
 onMounted(async () => {
   const googleMapApiLoader = new Loader({
     apiKey: import.meta.env.VITE_MAP_API_KEY,
+    version: "weekly",
+    libraries: ["places"],
+    language: "en",
   });
 
   const google = await googleMapApiLoader.load();
