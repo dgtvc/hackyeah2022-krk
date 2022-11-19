@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\DataTransferObject\FetchQueryDto;
 use App\Models\Location;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 final class LocationRepository extends AbstractEloquentRepository implements LocationRepositoryInterface
@@ -16,12 +17,18 @@ final class LocationRepository extends AbstractEloquentRepository implements Loc
     }
 
     /**
-     * @param array $parameters
+     * @param FetchQueryDto $parameters
+     * @param array $area
      * @return Collection
      */
-    public function fetch(FetchQueryDto $parameters): Collection
+    public function fetch(FetchQueryDto $parameters, array $area): Collection
     {
-        return $this->with('categories')->all();
+        return $this
+            ->ofCategoryTypes($parameters->getTrashType(), $parameters->getRecycleType())
+            ->whereBetween('latitude', $area['min_latitude'], $area['max_latitude'])
+            ->whereBetween('longitude', $area['min_longitude'], $area['max_longitude'])
+            ->with('categories')
+            ->get();
     }
 
     /**
@@ -31,5 +38,18 @@ final class LocationRepository extends AbstractEloquentRepository implements Loc
     public function store(array $data): void
     {
         $this->create($data);
+    }
+
+    private function ofCategoryTypes(array $trashType, array $recycleType)
+    {
+        $this->whereHas('categories',
+            fn(Builder $query) => $query
+                ->whereIn('uuid', $trashType)
+                ->where('type', 'Trash')
+                ->orWhereIn('uuid', $recycleType)
+                ->where('type', 'Recycle')
+        );
+
+        return $this;
     }
 }
