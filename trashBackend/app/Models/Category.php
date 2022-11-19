@@ -6,6 +6,7 @@ use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -28,5 +29,10 @@ class Category extends Model
     public function locations(): BelongsToMany
     {
         return $this->belongsToMany(Location::class);
+    }
+
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(RecycleType::class);
     }
 }

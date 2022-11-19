@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\RecycleType>
  */
-class LocationFactory extends Factory
+class RecycleTypeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +17,7 @@ class LocationFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->streetAddress,
-            'latitude' => (string) $this->faker->latitude(49.984288, 50.097279),
-            'longitude' => (string) $this->faker->longitude(19.874338, 20.041183),
+            //
         ];
     }
 }

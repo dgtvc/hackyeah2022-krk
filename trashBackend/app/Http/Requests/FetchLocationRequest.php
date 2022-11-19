@@ -2,11 +2,13 @@
 
 namespace App\Http\Requests;
 
-use App\DataTransferObject\FetchQueryDto;
+use App\Traits\RequestDefaultValuesTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
 class FetchLocationRequest extends FormRequest
 {
+    use RequestDefaultValuesTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -25,13 +27,31 @@ class FetchLocationRequest extends FormRequest
     public function rules()
     {
         return [
-            'trashType' => 'array',
-            'trashType.*' => 'uuid',
-            'recycleType' => 'array',
-            'recycleType.*' => 'uuid',
-            'distance' => 'integer|max:500|min:1',
-            'lat' => 'between:-90,90',
-            'lng' => 'between:-180,180'
+            'trashType' => [
+                'array',
+            ],
+            'trashType.*' => [
+                'uuid',
+            ],
+            'recycleType' => [
+                'array',
+            ],
+            'recycleType.*' => [
+                'uuid',
+            ],
+            'distance' => [
+                'integer',
+                'max:500',
+                'min:1',
+            ],
+            'lat' => [
+                'required',
+                'between:-90,90',
+            ],
+            'lng' => [
+                'required',
+                'between:-180,180',
+            ]
         ];
     }
 }
