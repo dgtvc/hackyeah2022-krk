@@ -5,9 +5,11 @@ import { useCategoriesStore } from "@/stores/categories";
 import { useLocationStore } from "@/stores/locations";
 import { reactive, onMounted, watch } from "vue";
 import BaseCard from "@/components/base/BaseCard.vue";
+import { storeToRefs } from "pinia";
 
 const categoriesStore = useCategoriesStore();
 const locationsStore = useLocationStore();
+const { locations } = storeToRefs(locationsStore);
 
 const model = reactive({
   coordinates: {
@@ -31,7 +33,7 @@ watch(
   () => {
     locationsStore.fetchPlaces(model);
   },
-  { deep: true }
+  { deep: true, immediate: true }
 );
 
 onMounted(() => {
@@ -91,38 +93,22 @@ onMounted(() => {
             center: model.coordinates,
             zoom: 12,
           }"
-          :markers="[
-            {
-              lat: 50.049683,
-              lng: 19.944544,
-            },
-            {
-              lat: 49.9834763,
-              lng: 20.0537965,
-              draggable: true,
-            },
-          ]"
+          :markers="
+            locations.map(({ latitude, longitude }) => ({
+              lat: parseFloat(latitude),
+              lng: parseFloat(longitude),
+            }))
+          "
         />
       </v-col>
       <v-col cols="3">
         <section class="right-bar">
           <BaseCard
+            v-for="(location, key) in locations"
+            :key="key"
             img-src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-            title="Cafe Badilico"
-            description="Small plates, salads & sandwiches - an intimate setting with 12
-                indoor seats plus patio seating."
-          />
-          <BaseCard
-            img-src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-            title="Cafe Badilico"
-            description="Small plates, salads & sandwiches - an intimate setting with 12
-                indoor seats plus patio seating."
-          />
-          <BaseCard
-            img-src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-            title="Cafe Badilico"
-            description="Small plates, salads & sandwiches - an intimate setting with 12
-                indoor seats plus patio seating."
+            :title="location.title"
+            :description="location.description"
           />
         </section>
       </v-col>
