@@ -162,9 +162,9 @@ watch(
             <BaseCard
               v-for="location in filteredLocations"
               :key="location.uuid"
-              img-src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
               :title="location.title || ''"
               :description="location.description || ''"
+              :recycle-type-uuid="location.recycle_type_uuid"
             />
           </v-fade-transition>
         </section>

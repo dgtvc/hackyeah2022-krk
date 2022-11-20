@@ -6,6 +6,7 @@ use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -16,6 +17,8 @@ class Location extends Model
     use HasTimestamps;
     use UuidTrait;
 
+    public const RELATION_STRING = 'location_uuid';
+
     protected $table = 'location';
 
     protected $cast = [
@@ -24,9 +27,12 @@ class Location extends Model
     ];
 
     protected $fillable = [
-        'name',
+        'title',
+        'address',
+        'description',
         'lat',
         'lng',
+        RecycleType::RELATION_STRING,
     ];
 
     protected $hidden = [
@@ -38,5 +44,10 @@ class Location extends Model
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    public function recycleType(): BelongsTo
+    {
+        return $this->belongsTo(RecycleType::class);
     }
 }

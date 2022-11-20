@@ -17,6 +17,8 @@ class Category extends Model
     use HasTimestamps;
     use UuidTrait;
 
+    public const RELATION_STRING = 'category_uuid';
+
     protected $table = 'categories';
 
     protected $hidden = [

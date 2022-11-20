@@ -11,13 +11,13 @@ class LocationFactory extends Factory
 {
     /**
      * Define the model's default state.
-     *
-     * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            'name' => $this->faker->streetAddress,
+            'title' => $this->faker->sentence(3),
+            'address' => $this->faker->address,
+            'description' => $this->faker->text,
             'lat' => (string) $this->faker->latitude(49.984288, 50.097279),
             'lng' => (string) $this->faker->longitude(19.874338, 20.041183),
         ];
