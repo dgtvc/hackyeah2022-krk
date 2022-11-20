@@ -36,6 +36,12 @@ return [
             'throw' => false,
         ],
 
+        'orange' => [
+            'driver' => 'local',
+            'root' => storage_path('orange'),
+            'throw' => false,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

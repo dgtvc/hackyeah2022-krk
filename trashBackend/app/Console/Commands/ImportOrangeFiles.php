@@ -32,7 +32,7 @@ class ImportOrangeFiles extends Command
 
         $this->recycleType = RecycleType::query()->where('name', 'Recycle')->firstOrFail();
 
-        $files = Storage::disk('local')->allFiles('orange');
+        $files = Storage::disk('orange')->allFiles();
 
         foreach ($files as $file) {
             $this->parse($file);
@@ -45,7 +45,7 @@ class ImportOrangeFiles extends Command
 
     private function parse(string $file)
     {
-        $data = json_decode(Storage::disk('local')->get($file));
+        $data = json_decode(Storage::disk('orange')->get($file));
 
         foreach ($data as $location) {
             $this->importLocation($location);
