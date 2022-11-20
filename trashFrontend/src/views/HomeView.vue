@@ -6,6 +6,7 @@ import { useLocationStore } from "@/stores/locations";
 import { reactive, onMounted, watch, computed, ref } from "vue";
 import BaseCard from "@/components/base/BaseCard.vue";
 import { storeToRefs } from "pinia";
+import { debounce } from "lodash";
 
 const categoriesStore = useCategoriesStore();
 const locationsStore = useLocationStore();
@@ -63,6 +64,10 @@ const selectPoint = ({ uuid }: { uuid: string }) => {
 
 const clearSelectedPoint = () => selectPoint({ uuid: "" });
 
+const updateRange = debounce((value: number) => {
+  model.distance = value;
+}, 1000);
+
 watch(
   () => model,
   () => {
@@ -77,7 +82,7 @@ watch(
   <v-container fluid class="pb-0">
     <v-row class="app-row">
       <v-col cols="3">
-        <section class="leftBar v-theme--light">
+        <section class="left-bar v-theme--light">
           <v-card-text>
             <h2 class="text-h6 mb-2">Location</h2>
             <PlaceAutocompleteInput @select="setLocation" />
@@ -119,12 +124,13 @@ watch(
           <v-card-text>
             <h2 class="text-h6 mb-5">Distance</h2>
             <v-slider
-              v-model="model.distance"
               color="primary"
               step="1"
               thumb-size="12"
               thumb-label
               max="50"
+              :value="model.distance"
+              @update:modelValue="updateRange"
             ></v-slider>
           </v-card-text>
           <v-card-text>
@@ -182,7 +188,8 @@ watch(
 .app-row.v-row {
   margin: -16px;
 }
-.right-bar {
+.right-bar,
+.left-bar {
   max-height: calc(100vh - 76px);
   overflow-y: auto;
 }

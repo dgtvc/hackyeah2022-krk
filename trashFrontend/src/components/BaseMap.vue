@@ -69,8 +69,6 @@ onMounted(async () => {
         return;
       }
 
-      console.log(props.mapConfig);
-
       map.value.setCenter(config.center);
     },
     { deep: true }
