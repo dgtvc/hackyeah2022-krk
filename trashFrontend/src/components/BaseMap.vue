@@ -3,6 +3,8 @@ import { ref, onMounted, defineProps, watch, defineEmits } from "vue";
 import type { Ref } from "vue";
 import { Loader } from "@googlemaps/js-api-loader";
 
+import { MAP_STYLES } from "@/constants/mapStyles";
+
 interface Props {
   mapConfig: {
     center: {
@@ -57,7 +59,7 @@ onMounted(async () => {
 
   map.value = new google.maps.Map(
     googleMapElement.value,
-    props.mapConfig || {}
+    { ...props.mapConfig, styles: MAP_STYLES } || {}
   );
 
   watch(
@@ -66,6 +68,8 @@ onMounted(async () => {
       if (!map.value || !config) {
         return;
       }
+
+      console.log(props.mapConfig);
 
       map.value.setCenter(config.center);
     },
