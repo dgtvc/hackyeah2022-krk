@@ -22,8 +22,8 @@ final class FetchBaseTypeAction extends Controller
     public function __invoke(Request $request): array
     {
         return [
-            RecycleTypeResource::collection($this->recycleTypeRepository->all())->toArray($request),
-            CategoryApiResource::collection($this->categoryRepository->all())->toArray($request),
+            ...RecycleTypeResource::collection($this->recycleTypeRepository->all())->toArray($request),
+            ...CategoryApiResource::collection($this->categoryRepository->all())->toArray($request),
         ];
     }
 }
