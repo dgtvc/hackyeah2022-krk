@@ -83,7 +83,7 @@ class ImportOrangeFiles extends Command
         for ($i = 0; $i < 7; $i++) {
             $text .= "<li>" . PHP_EOL;
             $text .= substr($days[$i], 0, 3) .': ';
-            $text .= implode(';', $openingHours->{mb_strtolower($days[$i])});
+            $text .= implode(';', $openingHours->{mb_strtolower($days[$i])}) ?? '-';
             $text .= "</li>" . PHP_EOL;
         }
 
