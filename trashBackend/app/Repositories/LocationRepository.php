@@ -33,8 +33,8 @@ final class LocationRepository extends AbstractEloquentRepository implements Loc
             $this->whereIn(RecycleType::RELATION_STRING, $parameters->getRecycleType());
         }
 
-        return $this->whereBetween('latitude', $area['min_latitude'], $area['max_latitude'])
-            ->whereBetween('longitude', $area['min_longitude'], $area['max_longitude'])
+        return $this->whereBetween('lat', $area['min_lat'], $area['max_lat'])
+            ->whereBetween('lng', $area['min_lng'], $area['max_lng'])
             ->with('categories')
             ->get();
     }
