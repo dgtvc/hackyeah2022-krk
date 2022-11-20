@@ -10,6 +10,7 @@ use App\Models\RecycleType;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 final class LocationRepository extends AbstractEloquentRepository implements LocationRepositoryInterface
 {
@@ -65,8 +66,9 @@ final class LocationRepository extends AbstractEloquentRepository implements Loc
     {
         $this->whereHas(
             'categories',
-            fn (Builder $query) => $query
-                ->whereIn('uuid', $trashType)
+            function (Builder $query) use ($trashType) {
+                $query->whereIn('uuid', $trashType);
+            }
         );
 
         return $this;
