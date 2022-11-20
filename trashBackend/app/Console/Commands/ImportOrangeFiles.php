@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Category;
+use App\Models\CategoryLocation;
 use App\Models\Location;
 use App\Models\RecycleType;
 use Illuminate\Console\Command;
@@ -18,13 +19,13 @@ class ImportOrangeFiles extends Command
     protected $description = 'Import orange files';
 
     private Model $recycleType;
-    private Collection $trashTypes;
+    private Collection $trashCategories;
 
     private int $count = 0;
 
     public function handle(): int
     {
-        $this->trashTypes = Category::query()->whereIn('name', [
+        $this->trashCategories = Category::query()->whereIn('name', [
             'Router',
             'Telephone',
         ])->get();
@@ -53,15 +54,22 @@ class ImportOrangeFiles extends Command
 
     private function importLocation(stdClass $location)
     {
-        Location::query()->updateOrCreate([
+        $model = Location::query()->updateOrCreate([
             'title' => $location->name,
             'address' => implode('; ', $location->formatted_address),
-        ], [
             'lat' => $location->_geoloc->lat,
             'lng' => $location->_geoloc->lng,
+        ], [
             'description' => $this->buildHours($location->formatted_opening_hours),
             RecycleType::RELATION_STRING => $this->recycleType->getKey(),
         ]);
+
+        $model->categories()->detach();
+
+        $this->trashCategories->each(fn (Category $category) => CategoryLocation::create([
+            Category::RELATION_STRING => $category->getKey(),
+            Location::RELATION_STRING => $model->getKey(),
+        ]));
 
         $this->count++;
     }
