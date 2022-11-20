@@ -18,7 +18,7 @@ const model = reactive({
   },
   name: "",
   trashTypes: [],
-  recycleType: [],
+  recycleType: "",
 });
 
 const setLocation = (loc: google.maps.places.PlaceResult) => {
@@ -127,6 +127,15 @@ const selectPoint = ({ uuid }: { uuid: string }) => {
       <v-col cols="3">
         <section class="right-bar">
           <v-fade-transition group mode="out-in">
+            <div v-if="!filteredLocations.length" class="info pa-2">
+              <h2 class="pb-4">No results found</h2>
+              <p class="font-weight-light text-center pb-4">
+                We did not found any places. Try to change search criterias.
+              </p>
+              <v-icon size="80" large color="green darken-4"
+                >mdi-map-search
+              </v-icon>
+            </div>
             <BaseCard
               v-for="location in filteredLocations"
               :key="location.uuid"
@@ -154,5 +163,10 @@ const selectPoint = ({ uuid }: { uuid: string }) => {
 }
 .v-col {
   padding-bottom: 0 !important;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>

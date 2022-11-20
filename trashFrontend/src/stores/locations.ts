@@ -12,7 +12,7 @@ export const useLocationStore = defineStore("location", () => {
     const flatFilters = {
       ...coordinates,
       ...rest,
-      recycleType: [recycleType],
+      recycleType: recycleType ? [recycleType] : [],
     };
 
     const { data } = useFetch(
