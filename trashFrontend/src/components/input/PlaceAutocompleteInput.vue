@@ -48,6 +48,7 @@ function initializeAutocomplete() {
 
       selectedPlace.value = place;
     });
+    window.ac = autocompleteInstance.value;
   });
 }
 

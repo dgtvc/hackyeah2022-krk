@@ -16,6 +16,7 @@ interface Props {
     lng: number;
     uuid: string;
     draggable?: boolean;
+    clickable?: boolean;
   }[];
 }
 
@@ -32,6 +33,15 @@ const emit = defineEmits<{
 
 const map: Ref<google.maps.Map | null> = ref(null);
 const googleMapElement: Ref<HTMLElement | null> = ref(null);
+const onMapMarkers: Ref<google.maps.Marker[]> = ref([]);
+
+const removeMarkers = () => {
+  onMapMarkers.value.forEach((onMapMarker) => {
+    onMapMarker.setMap(null);
+    onMapMarker.setVisible(false);
+  });
+  onMapMarkers.value = [];
+};
 
 onMounted(async () => {
   const googleMapApiLoader = new Loader({
@@ -50,34 +60,45 @@ onMounted(async () => {
     props.mapConfig || {}
   );
 
+  window.removeMarkers = removeMarkers;
+
   watch(
     () => props.mapConfig,
     (config) => {
       if (!map.value || !config) {
         return;
       }
-      console.log(config.center);
 
       map.value.setCenter(config.center);
     },
     { deep: true }
   );
 
-  props.markers.forEach(({ lat, lng, draggable, uuid }) => {
-    const marker = new google.maps.Marker({
-      position: { lat, lng },
-      title: "Hello World!",
-      draggable,
-    });
+  watch(
+    () => props.markers,
+    (newMarkers) => {
+      removeMarkers();
 
-    marker.addListener("click", () => {
-      map.value?.setZoom(16);
-      map.value?.setCenter(marker.getPosition() as google.maps.LatLng);
-      emit("selectedPoint", { position: marker.getPosition(), uuid });
-    });
+      newMarkers.forEach(({ lat, lng, draggable, uuid, clickable }) => {
+        const marker = new google.maps.Marker({
+          position: { lat, lng },
+          title: "Hello World!",
+          draggable,
+        });
 
-    marker.setMap(map.value);
-  });
+        if (clickable) {
+          marker.addListener("click", () => {
+            map.value?.setZoom(16);
+            map.value?.setCenter(marker.getPosition() as google.maps.LatLng);
+            emit("selectedPoint", { position: marker.getPosition(), uuid });
+          });
+        }
+        onMapMarkers.value.push(marker);
+        marker.setMap(map.value);
+      });
+    },
+    { deep: true, immediate: true }
+  );
 });
 </script>
 

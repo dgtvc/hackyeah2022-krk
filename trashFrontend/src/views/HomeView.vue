@@ -47,6 +47,7 @@ const coords = computed(() =>
     lat: parseFloat(latitude),
     lng: parseFloat(longitude),
     uuid,
+    clickable: true,
   }))
 );
 

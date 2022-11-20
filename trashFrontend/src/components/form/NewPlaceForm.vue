@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { useCategoriesStore } from "@/stores/categories";
 import { onMounted, reactive } from "vue";
+import PlaceAutocompleteInput from "@/components/input/PlaceAutocompleteInput.vue";
 
 const emit = defineEmits<{
   (event: "submit", payload: any): void;
+  (event: "selectLocation", payload: google.maps.places.PlaceResult): void;
 }>();
 
 const categoriesStore = useCategoriesStore();
@@ -28,6 +30,12 @@ onMounted(() => {
 
 <template>
   <v-form>
+    <v-card-text>
+      <h2 class="text-h6 mb-2">Location</h2>
+      <PlaceAutocompleteInput
+        @select="(location) => emit('selectLocation', location)"
+      />
+    </v-card-text>
     <v-card-text>
       <h2 class="text-h6 mb-2">Trash types</h2>
       <v-chip-group v-model="model.trashTypes" column multiple>
