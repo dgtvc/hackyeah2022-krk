@@ -38,7 +38,7 @@ const iconName = computed(() => {
     </v-card-title>
 
     <v-card-text>
-      {{ props.description }}
+      <span v-html="props.description"></span>
     </v-card-text>
   </v-card>
 </template>

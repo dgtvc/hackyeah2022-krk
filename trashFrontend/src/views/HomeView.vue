@@ -17,8 +17,9 @@ const model = reactive({
     lng: 19.944544,
   },
   name: "",
-  trashTypes: [],
+  category: [],
   recycleType: "",
+  distance: 20,
 });
 
 const setLocation = (loc: google.maps.places.PlaceResult) => {
@@ -76,7 +77,7 @@ watch(
   <v-container fluid class="pb-0">
     <v-row class="app-row">
       <v-col cols="3">
-        <section class="leftBar">
+        <section class="leftBar v-theme--light">
           <v-card-text>
             <h2 class="text-h6 mb-2">Location</h2>
             <PlaceAutocompleteInput @select="setLocation" />
@@ -85,7 +86,7 @@ watch(
             <h2 class="text-h6 mb-2">Trash types</h2>
 
             <v-chip-group
-              v-model="model.trashTypes"
+              v-model="model.category"
               column
               multiple
               selected-class="bg-primary"
@@ -114,6 +115,17 @@ watch(
                 {{ item.name }}
               </v-btn>
             </v-btn-toggle>
+          </v-card-text>
+          <v-card-text>
+            <h2 class="text-h6 mb-5">Distance</h2>
+            <v-slider
+              v-model="model.distance"
+              color="primary"
+              step="1"
+              thumb-size="12"
+              thumb-label
+              max="50"
+            ></v-slider>
           </v-card-text>
           <v-card-text>
             <h2 class="text-h6 mb-2">Options</h2>
