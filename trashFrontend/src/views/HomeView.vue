@@ -18,7 +18,7 @@ const model = reactive({
   },
   name: "",
   trashTypes: [],
-  recycleType: [],
+  recycleType: "",
 });
 
 const setLocation = (loc: google.maps.places.PlaceResult) => {
@@ -33,14 +33,6 @@ const setLocation = (loc: google.maps.places.PlaceResult) => {
   }
 };
 
-watch(
-  () => model,
-  () => {
-    locationsStore.fetchPlaces(model);
-  },
-  { deep: true, immediate: true }
-);
-
 onMounted(() => {
   categoriesStore.fetchCategories();
 });
@@ -48,10 +40,11 @@ onMounted(() => {
 const selectedPoint = ref("");
 
 const coords = computed(() =>
-  locations.value.map(({ latitude, longitude, uuid }) => ({
-    lat: parseFloat(latitude),
-    lng: parseFloat(longitude),
+  locations.value.map(({ lat, lng, uuid }) => ({
+    lat: parseFloat(lat),
+    lng: parseFloat(lng),
     uuid,
+    clickable: true,
   }))
 );
 
@@ -66,6 +59,17 @@ const filteredLocations = computed(() =>
 const selectPoint = ({ uuid }: { uuid: string }) => {
   selectedPoint.value = uuid;
 };
+
+const clearSelectedPoint = () => selectPoint({ uuid: "" });
+
+watch(
+  () => model,
+  () => {
+    clearSelectedPoint();
+    locationsStore.fetchPlaces(model);
+  },
+  { deep: true, immediate: true }
+);
 </script>
 
 <template>
@@ -80,7 +84,12 @@ const selectPoint = ({ uuid }: { uuid: string }) => {
           <v-card-text>
             <h2 class="text-h6 mb-2">Trash types</h2>
 
-            <v-chip-group v-model="model.trashTypes" column multiple>
+            <v-chip-group
+              v-model="model.trashTypes"
+              column
+              multiple
+              selected-class="bg-primary"
+            >
               <v-chip
                 filter
                 outlined
@@ -109,7 +118,12 @@ const selectPoint = ({ uuid }: { uuid: string }) => {
           <v-card-text>
             <h2 class="text-h6 mb-2">Options</h2>
 
-            <v-switch inset label="Only paid offers"></v-switch>
+            <v-switch
+              class="primary--text"
+              :dark="false"
+              inset
+              label="Only paid offers"
+            ></v-switch>
           </v-card-text>
         </section>
       </v-col>
@@ -126,12 +140,21 @@ const selectPoint = ({ uuid }: { uuid: string }) => {
       <v-col cols="3">
         <section class="right-bar">
           <v-fade-transition group mode="out-in">
+            <div v-if="!filteredLocations.length" class="info pa-2">
+              <h2 class="pb-4">No results found</h2>
+              <p class="font-weight-light text-center pb-4">
+                We did not found any places. Try to change search criterias.
+              </p>
+              <v-icon size="80" large color="green darken-4"
+                >mdi-map-search
+              </v-icon>
+            </div>
             <BaseCard
               v-for="location in filteredLocations"
               :key="location.uuid"
               img-src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-              :title="location.title"
-              :description="location.description"
+              :title="location.title || ''"
+              :description="location.description || ''"
             />
           </v-fade-transition>
         </section>
@@ -153,5 +176,13 @@ const selectPoint = ({ uuid }: { uuid: string }) => {
 }
 .v-col {
   padding-bottom: 0 !important;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.v-switch__track {
+  color: #28965a;
 }
 </style>

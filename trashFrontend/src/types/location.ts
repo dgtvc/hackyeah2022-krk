@@ -3,8 +3,8 @@ export interface Location {
   name: string;
   title: string;
   description: string;
-  latitude: string;
-  longitude: string;
+  lat: string;
+  lng: string;
   categories: {
     uuid: string;
     name: string;

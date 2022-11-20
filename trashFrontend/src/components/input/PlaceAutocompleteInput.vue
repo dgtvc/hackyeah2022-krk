@@ -30,6 +30,7 @@ const options = {
   fields: ["geometry", "name"],
   strictBounds: false,
   types: ["establishment"],
+  location,
 };
 
 function initializeAutocomplete() {

@@ -6,22 +6,23 @@ import { useFetch } from "@vueuse/core";
 export const useLocationStore = defineStore("location", () => {
   const locations = ref<Location[]>([]);
 
-  function fetchPlaces(filters: any) {
+  async function fetchPlaces(filters: any) {
     const { coordinates, recycleType, ...rest } = filters;
 
     const flatFilters = {
       ...coordinates,
       ...rest,
-      recycleType: [recycleType],
+      recycleType: recycleType ? [recycleType] : [],
+      distance: 300,
     };
 
-    const { data } = useFetch(
+    const { data } = await useFetch(
       "https://clownfish-app-35nwf.ondigitalocean.app/api/location/fetch"
     )
       .post(flatFilters)
       .json();
 
-    locations.value = data.value ?? [];
+    locations.value = data.value?.data ?? [];
   }
 
   return { locations, fetchPlaces };
