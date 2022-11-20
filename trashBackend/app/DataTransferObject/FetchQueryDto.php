@@ -9,15 +9,15 @@ final class FetchQueryDto
     private ?array $trashType;
     private ?array $recycleType;
     private ?int $distance;
-    private ?float $lat;
-    private ?float $lng;
+    private ?string $lat;
+    private ?string $lng;
 
     public function __construct(
         ?array $trashType,
         ?array $recycleType,
         ?int $distance,
-        ?float $lat,
-        ?float $lng,
+        ?string $lat,
+        ?string $lng,
     ) {
         $this->trashType = $trashType;
         $this->recycleType = $recycleType;
@@ -41,13 +41,13 @@ final class FetchQueryDto
         return $this->distance;
     }
 
-    public function getLat(): ?float
+    public function getLat(): float
     {
-        return $this->lat;
+        return floatval($this->lat);
     }
 
-    public function getLng(): ?float
+    public function getLng(): float
     {
-        return $this->lng;
+        return floatval($this->lng);
     }
 }

@@ -14,16 +14,13 @@ final class GeoCalculationService implements GeoCalculationServiceInterface
     public const EARTH_RADIUS = 6371;
 
     /**
-     * @param string $lat
-     * @param string $lng
-     * @param int $distance
+     * @param  float  $lat
+     * @param  float  $lng
+     * @param  int  $distance
      * @return array
      */
-    public function calculateLatLongArea(string $lat, string $lng, int $distance): array
+    public function calculateLatLongArea(float $lat, float $lng, int $distance): array
     {
-        $lat = (float) $lat;
-        $lng = (float) $lng;
-
         $maxLat = $lat + rad2deg($distance / self::EARTH_RADIUS);
         $minLat = $lat - rad2deg($distance/ self::EARTH_RADIUS);
         $maxLon = $lng + rad2deg(asin($distance / self::EARTH_RADIUS) / cos(deg2rad($lat)));
