@@ -128,6 +128,7 @@ watch(
               step="1"
               thumb-size="12"
               thumb-label
+              min="1"
               max="50"
               :value="model.distance"
               @update:modelValue="updateRange"
