@@ -54,7 +54,7 @@ class StoreLocationRequest extends FormRequest
             ],
             RecycleType::RELATION_STRING => [
                 'required',
-                'string',
+                'uuid',
                 'exists:recycle_types,uuid',
             ]
         ];

@@ -17,6 +17,8 @@ class CategorySeeder extends Seeder
         $this->createCategory('Glass');
         $this->createCategory('Battery');
         $this->createCategory('Electronic');
+        $this->createCategory('Router');
+        $this->createCategory('Telephone');
         $this->createCategory('Medicines');
     }
 
