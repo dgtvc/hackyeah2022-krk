@@ -9,15 +9,15 @@ final class FetchQueryDto
     private ?array $trashType;
     private ?array $recycleType;
     private ?int $distance;
-    private ?string $lat;
-    private ?string $lng;
+    private string|float|null $lat;
+    private string|float|null $lng;
 
     public function __construct(
         ?array $trashType,
         ?array $recycleType,
         ?int $distance,
-        ?string $lat,
-        ?string $lng,
+        string|float|null $lat,
+        string|float|null $lng,
     ) {
         $this->trashType = $trashType;
         $this->recycleType = $recycleType;
