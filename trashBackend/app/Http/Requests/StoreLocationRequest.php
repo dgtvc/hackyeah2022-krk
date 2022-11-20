@@ -25,9 +25,17 @@ class StoreLocationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => [
+            'address' => [
                 'required',
-                'max:80'
+                'max:160'
+            ],
+            'title' => [
+                'required',
+                'max:160'
+            ],
+            'description' => [
+                'required',
+                'max:99999'
             ],
             'lat' => [
                 'required',
@@ -41,10 +49,11 @@ class StoreLocationRequest extends FormRequest
                 'array',
             ],
             'category.*' => [
-                'uuid'.
+                'uuid',
                 'exists:categories,uuid',
             ],
             RecycleType::RELATION_STRING => [
+                'required',
                 'string',
                 'exists:recycle_types,uuid',
             ]

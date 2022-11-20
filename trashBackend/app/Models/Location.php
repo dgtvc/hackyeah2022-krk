@@ -24,9 +24,12 @@ class Location extends Model
     ];
 
     protected $fillable = [
-        'name',
+        'title',
+        'address',
+        'description',
         'lat',
         'lng',
+        RecycleType::RELATION_STRING,
     ];
 
     protected $hidden = [
