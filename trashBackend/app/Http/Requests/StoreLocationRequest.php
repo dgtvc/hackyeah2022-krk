@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\RecycleType;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreLocationRequest extends FormRequest
@@ -29,7 +30,7 @@ class StoreLocationRequest extends FormRequest
             'longitude' => 'required|between:-180,180',
             'category' => 'array',
             'category.*' => 'uuid|exists:categories,uuid',
-//            'recycle_type' => 'string|exists:recycle_type,uuid'
+            RecycleType::RELATION_STRING => 'string|exists:recycle_type,uuid'
         ];
     }
 }
