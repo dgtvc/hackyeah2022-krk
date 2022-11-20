@@ -33,14 +33,6 @@ const setLocation = (loc: google.maps.places.PlaceResult) => {
   }
 };
 
-watch(
-  () => model,
-  () => {
-    locationsStore.fetchPlaces(model);
-  },
-  { deep: true, immediate: true }
-);
-
 onMounted(() => {
   categoriesStore.fetchCategories();
 });
@@ -48,9 +40,9 @@ onMounted(() => {
 const selectedPoint = ref("");
 
 const coords = computed(() =>
-  locations.value.map(({ latitude, longitude, uuid }) => ({
-    lat: parseFloat(latitude),
-    lng: parseFloat(longitude),
+  locations.value.map(({ lat, lng, uuid }) => ({
+    lat: parseFloat(lat),
+    lng: parseFloat(lng),
     uuid,
     clickable: true,
   }))
@@ -67,6 +59,17 @@ const filteredLocations = computed(() =>
 const selectPoint = ({ uuid }: { uuid: string }) => {
   selectedPoint.value = uuid;
 };
+
+const clearSelectedPoint = () => selectPoint({ uuid: "" });
+
+watch(
+  () => model,
+  () => {
+    clearSelectedPoint();
+    locationsStore.fetchPlaces(model);
+  },
+  { deep: true, immediate: true }
+);
 </script>
 
 <template>
@@ -150,8 +153,8 @@ const selectPoint = ({ uuid }: { uuid: string }) => {
               v-for="location in filteredLocations"
               :key="location.uuid"
               img-src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-              :title="location.title"
-              :description="location.description"
+              :title="location.title || ''"
+              :description="location.description || ''"
             />
           </v-fade-transition>
         </section>
