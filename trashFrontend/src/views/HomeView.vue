@@ -114,13 +114,15 @@ const selectPoint = ({ uuid }: { uuid: string }) => {
       </v-col>
       <v-col cols="3">
         <section class="right-bar">
-          <BaseCard
-            v-for="location in filteredLocations"
-            :key="location.uuid"
-            img-src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-            :title="location.title"
-            :description="location.description"
-          />
+          <v-fade-transition group mode="out-in">
+            <BaseCard
+              v-for="location in filteredLocations"
+              :key="location.uuid"
+              img-src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+              :title="location.title"
+              :description="location.description"
+            />
+          </v-fade-transition>
         </section>
       </v-col>
     </v-row>
