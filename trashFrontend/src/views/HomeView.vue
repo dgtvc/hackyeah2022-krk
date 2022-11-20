@@ -81,7 +81,12 @@ const selectPoint = ({ uuid }: { uuid: string }) => {
           <v-card-text>
             <h2 class="text-h6 mb-2">Trash types</h2>
 
-            <v-chip-group v-model="model.trashTypes" column multiple>
+            <v-chip-group
+              v-model="model.trashTypes"
+              column
+              multiple
+              selected-class="bg-primary"
+            >
               <v-chip
                 filter
                 outlined
@@ -110,7 +115,12 @@ const selectPoint = ({ uuid }: { uuid: string }) => {
           <v-card-text>
             <h2 class="text-h6 mb-2">Options</h2>
 
-            <v-switch inset label="Only paid offers"></v-switch>
+            <v-switch
+              class="primary--text"
+              :dark="false"
+              inset
+              label="Only paid offers"
+            ></v-switch>
           </v-card-text>
         </section>
       </v-col>
@@ -168,5 +178,8 @@ const selectPoint = ({ uuid }: { uuid: string }) => {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.v-switch__track {
+  color: #28965a;
 }
 </style>

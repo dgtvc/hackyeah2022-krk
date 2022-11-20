@@ -45,6 +45,7 @@ onMounted(() => {
           v-for="category in categoriesStore.trashCategories"
           :key="category.uuid"
           :value="category.uuid"
+          selected-class="bg-primary"
         >
           {{ category.name }}
         </v-chip>
