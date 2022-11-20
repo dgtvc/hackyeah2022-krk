@@ -13,7 +13,6 @@ export const useLocationStore = defineStore("location", () => {
       ...coordinates,
       ...rest,
       recycleType: recycleType ? [recycleType] : [],
-      distance: 300,
     };
 
     const { data } = await useFetch(

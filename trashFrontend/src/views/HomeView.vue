@@ -19,7 +19,7 @@ const model = reactive({
   name: "",
   category: [],
   recycleType: "",
-  range: 300,
+  distance: 20,
 });
 
 const setLocation = (loc: google.maps.places.PlaceResult) => {
@@ -86,7 +86,7 @@ watch(
             <h2 class="text-h6 mb-2">Trash types</h2>
 
             <v-chip-group
-              v-model="model.trashTypes"
+              v-model="model.category"
               column
               multiple
               selected-class="bg-primary"
@@ -119,10 +119,12 @@ watch(
           <v-card-text>
             <h2 class="text-h6 mb-5">Distance</h2>
             <v-slider
-              v-model="model.range"
+              v-model="model.distance"
               color="primary"
-              step="10"
+              step="1"
               thumb-size="12"
+              thumb-label
+              max="50"
             ></v-slider>
           </v-card-text>
           <v-card-text>
