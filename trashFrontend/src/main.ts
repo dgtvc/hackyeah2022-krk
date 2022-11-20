@@ -30,6 +30,11 @@ const vuetify = createVuetify({
           primary: "#28965A",
         },
       },
+      dark: {
+        colors: {
+          primary: "#28965A",
+        },
+      },
     },
   },
   defaults: {
