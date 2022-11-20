@@ -18,8 +18,8 @@ class LocationFactory extends Factory
     {
         return [
             'name' => $this->faker->streetAddress,
-            'latitude' => (string) $this->faker->latitude(49.984288, 50.097279),
-            'longitude' => (string) $this->faker->longitude(19.874338, 20.041183),
+            'lat' => (string) $this->faker->latitude(49.984288, 50.097279),
+            'lng' => (string) $this->faker->longitude(19.874338, 20.041183),
         ];
     }
 }

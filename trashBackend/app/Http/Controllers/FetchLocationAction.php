@@ -31,13 +31,13 @@ final class FetchLocationAction extends Controller
             trashType: $request->get('trashType'),
             recycleType: $request->get('recycleType'),
             distance: (int) $request->get('distance'),
-            latitude: $request->get('lat'),
-            longitude: $request->get('lng'),
+            lat: $request->get('lat'),
+            lng: $request->get('lng'),
         );
 
         $area = $this->geoCalculationService->calculateLatLongArea(
-            $data->getLatitude(),
-            $data->getLongitude(),
+            $data->getLat(),
+            $data->getLng(),
             $data->getDistance()
         );
 

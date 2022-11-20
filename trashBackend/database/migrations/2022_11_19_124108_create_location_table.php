@@ -16,8 +16,8 @@ return new class () extends Migration {
         Schema::create('location', function (Blueprint $table) {
             $table->uuid();
             $table->string('name', 160);
-            $table->string('latitude');
-            $table->string('longitude');
+            $table->string('lat');
+            $table->string('lng');
             $table->foreignIdFor(RecycleType::class);
             $table->timestamps();
             $table->softDeletes();

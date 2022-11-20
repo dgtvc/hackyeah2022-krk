@@ -1,4 +1,4 @@
-export type CategoryType = "Trash" | "Recycle";
+export type CategoryType = "category" | "recycle_type";
 
 export interface Category {
   uuid: string;

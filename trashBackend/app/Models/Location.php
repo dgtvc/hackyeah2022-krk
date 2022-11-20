@@ -18,10 +18,15 @@ class Location extends Model
 
     protected $table = 'location';
 
+    protected $cast = [
+        'lat' => 'float',
+        'lng' => 'float',
+    ];
+
     protected $fillable = [
         'name',
-        'latitude',
-        'longitude',
+        'lat',
+        'lng',
     ];
 
     protected $hidden = [

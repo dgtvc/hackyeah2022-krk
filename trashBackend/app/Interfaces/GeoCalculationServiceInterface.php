@@ -6,5 +6,5 @@ namespace App\Interfaces;
 
 interface GeoCalculationServiceInterface
 {
-    public function calculateLatLongArea(string $latitude, string $longitude, int $distance): array;
+    public function calculateLatLongArea(float $lat, float $lng, int $distance): array;
 }
