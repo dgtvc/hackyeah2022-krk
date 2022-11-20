@@ -91,8 +91,14 @@ const selectPoint = ({ uuid }: { uuid: string }) => {
             <h2 class="text-h6 mb-2">Recycle type</h2>
 
             <v-btn-toggle color="primary" v-model="model.recycleType">
-              <v-btn size="small">Repair</v-btn>
-              <v-btn size="small">Recycle</v-btn>
+              <v-btn
+                size="small"
+                v-for="item in categoriesStore.recycleCategories"
+                :key="item.uuid"
+                :value="item.uuid"
+              >
+                {{ item.name }}
+              </v-btn>
             </v-btn-toggle>
           </v-card-text>
           <v-card-text>
