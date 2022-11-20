@@ -16,6 +16,7 @@ const model = reactive({
     lat: 50.049683,
     lng: 19.944544,
   },
+  name: "",
   trashTypes: [],
   recycleType: [],
 });
@@ -26,6 +27,10 @@ const setLocation = (loc: google.maps.places.PlaceResult) => {
   }
   model.coordinates.lat = loc.geometry.location.lat();
   model.coordinates.lng = loc.geometry.location.lng();
+
+  if (loc.name) {
+    model.name = loc.name;
+  }
 };
 
 watch(
