@@ -25,7 +25,15 @@ export const useLocationStore = defineStore("location", () => {
     locations.value = data.value?.data ?? [];
   }
 
-  return { locations, fetchPlaces };
+  async function createPlace({ recycleType, ...payload }: any) {
+    await useFetch(
+      "https://clownfish-app-35nwf.ondigitalocean.app/api/location"
+    )
+      .post({ recycle_type_uuid: recycleType, ...payload })
+      .json();
+  }
+
+  return { locations, fetchPlaces, createPlace };
 });
 
 // const mockData = [

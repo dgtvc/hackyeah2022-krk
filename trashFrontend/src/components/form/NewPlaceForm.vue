@@ -11,10 +11,12 @@ const emit = defineEmits<{
 const categoriesStore = useCategoriesStore();
 
 const model = reactive({
-  coordinates: null as any,
-  name: "",
-  trashTypes: [],
-  recycleType: "repair",
+  lat: 0,
+  lng: 0,
+  address: "",
+  category: [],
+  recycleType: "",
+  title: "",
   description: "",
   isPaid: "",
 });
@@ -22,6 +24,17 @@ const model = reactive({
 function submit() {
   emit("submit", model);
 }
+
+const selectLocation = (location: google.maps.places.PlaceResult) => {
+  if (!location.geometry?.location) {
+    return;
+  }
+  model.lat = location.geometry.location.lat();
+  model.lng = location.geometry.location.lng();
+  model.address = location.name || "";
+
+  emit("selectLocation", location);
+};
 
 onMounted(() => {
   categoriesStore.fetchCategories();
@@ -32,13 +45,11 @@ onMounted(() => {
   <v-form>
     <v-card-text>
       <h2 class="text-h6 mb-2">Location</h2>
-      <PlaceAutocompleteInput
-        @select="(location) => emit('selectLocation', location)"
-      />
+      <PlaceAutocompleteInput @select="selectLocation" />
     </v-card-text>
     <v-card-text>
       <h2 class="text-h6 mb-2">Trash types</h2>
-      <v-chip-group v-model="model.trashTypes" column multiple>
+      <v-chip-group v-model="model.category" column multiple>
         <v-chip
           filter
           outlined
@@ -56,9 +67,20 @@ onMounted(() => {
       <h2 class="text-h6 mb-2">Recycle types</h2>
 
       <v-btn-toggle color="primary" v-model="model.recycleType">
-        <v-btn size="small" value="repair">Repair</v-btn>
-        <v-btn size="small" value="recycle">Recycle</v-btn>
+        <v-btn
+          size="small"
+          v-for="item in categoriesStore.recycleCategories"
+          :key="item.uuid"
+          :value="item.uuid"
+        >
+          {{ item.name }}
+        </v-btn>
       </v-btn-toggle>
+    </v-card-text>
+
+    <v-card-text>
+      <h2 class="text-h6 mb-2">Place title</h2>
+      <v-text-field v-model="model.title" label="Title" />
     </v-card-text>
 
     <v-card-text>

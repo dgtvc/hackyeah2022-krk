@@ -17,7 +17,7 @@ const model = reactive({
     lng: 19.944544,
   },
   name: "",
-  trashTypes: [],
+  category: [],
   recycleType: "",
   range: 300,
 });

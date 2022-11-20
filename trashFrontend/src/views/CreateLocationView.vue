@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { reactive } from "vue";
 import BaseMap from "@/components/BaseMap.vue";
 import NewPlaceForm from "@/components/form/NewPlaceForm.vue";
-import { reactive } from "vue";
+import { useLocationStore } from "@/stores/locations";
+
+const { createPlace } = useLocationStore();
 
 function createLocation(val: any) {
-  console.log(val);
+  createPlace(val);
 }
 
 const markerLocation = reactive({
