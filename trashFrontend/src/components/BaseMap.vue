@@ -60,8 +60,6 @@ onMounted(async () => {
     props.mapConfig || {}
   );
 
-  window.removeMarkers = removeMarkers;
-
   watch(
     () => props.mapConfig,
     (config) => {

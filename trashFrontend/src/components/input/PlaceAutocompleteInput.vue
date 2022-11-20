@@ -30,6 +30,7 @@ const options = {
   fields: ["geometry", "name"],
   strictBounds: false,
   types: ["establishment"],
+  location,
 };
 
 function initializeAutocomplete() {
@@ -48,7 +49,6 @@ function initializeAutocomplete() {
 
       selectedPlace.value = place;
     });
-    window.ac = autocompleteInstance.value;
   });
 }
 
