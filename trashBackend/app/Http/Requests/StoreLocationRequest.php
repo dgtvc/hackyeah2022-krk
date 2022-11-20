@@ -27,7 +27,7 @@ class StoreLocationRequest extends FormRequest
         return [
             'name' => 'required|max:80',
             'lat' => 'required|between:-90,90',
-            'lon' => 'required|between:-180,180',
+            'lng' => 'required|between:-180,180',
             'category' => 'array',
             'category.*' => 'uuid|exists:categories,uuid',
             RecycleType::RELATION_STRING => 'string|exists:recycle_type,uuid'

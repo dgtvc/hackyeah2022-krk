@@ -22,12 +22,12 @@ final class GeoCalculationService implements GeoCalculationServiceInterface
     public function calculateLatLongArea(string $lat, string $lng, int $distance): array
     {
         $lat = (float) $lat;
-        $lon = (float) $lng;
+        $lng = (float) $lng;
 
         $maxLat = $lat + rad2deg($distance / self::EARTH_RADIUS);
         $minLat = $lat - rad2deg($distance/ self::EARTH_RADIUS);
-        $maxLon = $lon + rad2deg(asin($distance / self::EARTH_RADIUS) / cos(deg2rad($lat)));
-        $minLon = $lon - rad2deg(asin($distance / self::EARTH_RADIUS) / cos(deg2rad($lat)));
+        $maxLon = $lng + rad2deg(asin($distance / self::EARTH_RADIUS) / cos(deg2rad($lat)));
+        $minLon = $lng - rad2deg(asin($distance / self::EARTH_RADIUS) / cos(deg2rad($lat)));
 
         return [
             'min_lat' => $minLat,
