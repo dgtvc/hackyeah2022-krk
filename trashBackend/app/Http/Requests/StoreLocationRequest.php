@@ -25,12 +25,29 @@ class StoreLocationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:80',
-            'lat' => 'required|between:-90,90',
-            'lng' => 'required|between:-180,180',
-            'category' => 'array',
-            'category.*' => 'uuid|exists:categories,uuid',
-            RecycleType::RELATION_STRING => 'string|exists:recycle_type,uuid'
+            'name' => [
+                'required',
+                'max:80'
+            ],
+            'lat' => [
+                'required',
+                'between:-90,90',
+            ],
+            'lng' => [
+                'required',
+                'between:-180,180'
+            ],
+            'category' => [
+                'array',
+            ],
+            'category.*' => [
+                'uuid'.
+                'exists:categories,uuid',
+            ],
+            RecycleType::RELATION_STRING => [
+                'string',
+                'exists:recycle_types,uuid',
+            ]
         ];
     }
 }
