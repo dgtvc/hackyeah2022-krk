@@ -1,27 +1,44 @@
 <script setup lang="ts">
+import { useCategoriesStore } from "@/stores/categories";
+import { computed } from "vue";
 import { defineProps } from "vue";
 
+const categoriesStore = useCategoriesStore();
+
 interface Props {
-  imgSrc: string;
   title: string;
   description: string;
+  recycleTypeUuid: string;
 }
 
 const props = defineProps<Props>();
+
+const recycleType = categoriesStore.getRecycleTypeByUUID(props.recycleTypeUuid);
+
+const iconName = computed(() => {
+  if (!recycleType) {
+    return "";
+  }
+
+  if (recycleType.name === "Repair") {
+    return "mdi-wrench";
+  } else if (recycleType.name === "Recycle") {
+    return "mdi-recycle";
+  }
+
+  return "";
+});
 </script>
 
 <template>
-  <v-card color="#d3d3d3" class="mb-3">
-    <v-img height="150" :src="props.imgSrc" cover></v-img>
-
-    <v-card-title>{{ props.title }}</v-card-title>
+  <v-card color="grey-lighten-4" class="mb-4">
+    <v-card-title class="d-flex align-baseline">
+      <v-icon color="primary" size="22" class="mr-2">{{ iconName }}</v-icon>
+      {{ props.title }}
+    </v-card-title>
 
     <v-card-text>
       {{ props.description }}
     </v-card-text>
-
-    <v-card-actions>
-      <v-btn color="lighten-2" text> More details </v-btn>
-    </v-card-actions>
   </v-card>
 </template>

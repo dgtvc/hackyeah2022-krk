@@ -1,6 +1,6 @@
 export interface Location {
   uuid: string;
-  name: string;
+  address: string;
   title: string;
   description: string;
   lat: string;
@@ -10,4 +10,5 @@ export interface Location {
     name: string;
     type: string;
   }[];
+  recycle_type_uuid: string;
 }

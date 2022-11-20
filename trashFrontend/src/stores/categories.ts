@@ -14,6 +14,9 @@ export const useCategoriesStore = defineStore("categories", () => {
     categories.value.filter((category) => category.type === "recycle_type")
   );
 
+  const getRecycleTypeByUUID = (uuid: string) =>
+    categories.value.find((category) => category.uuid === uuid);
+
   async function fetchCategories() {
     const { data } = await useFetch(
       "https://clownfish-app-35nwf.ondigitalocean.app/api/base"
@@ -22,5 +25,10 @@ export const useCategoriesStore = defineStore("categories", () => {
     categories.value = data.value;
   }
 
-  return { trashCategories, recycleCategories, fetchCategories };
+  return {
+    trashCategories,
+    recycleCategories,
+    fetchCategories,
+    getRecycleTypeByUUID,
+  };
 });
